@@ -1,0 +1,15 @@
+# OS & Editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+*.bak
+*.tmp
+*.swp
+*~
+
+# Local user secrets / runtime data
+**/api.local.json
+*_config.txt
+*_tokens.txt
+*_history.txt
+*.m4a

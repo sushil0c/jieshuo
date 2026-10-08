@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PocketNews — User Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --ink-soft: #3d3d5c;
+    --ink-light: #7a7a9d;
+    --accent: #e63946;
+    --accent2: #457b9d;
+    --bg: #fefdf8;
+    --bg-card: #ffffff;
+    --bg-code: #f0eff9;
+    --border: #e8e6f0;
+    --border-strong: #c8c4dc;
+    --gold: #c9a84c;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 17px;
+    line-height: 1.75;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    color: white;
+    padding: 60px 40px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.08;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -40px;
+    width: 250px; height: 250px;
+    border-radius: 50%;
+    background: var(--accent2);
+    opacity: 0.1;
+  }
+  .header-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+    display: block;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  header h1 span { color: var(--accent); }
+  header p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.6);
+    font-style: italic;
+    font-family: 'Source Serif 4', serif;
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ── TOC ── */
+  .toc-wrap {
+    background: var(--ink);
+    color: white;
+    padding: 40px;
+  }
+  .toc-inner {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .toc-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 4px 24px;
+  }
+  .toc-grid a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 14px;
+    font-family: 'Source Serif 4', serif;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    transition: color 0.2s;
+  }
+  .toc-grid a:hover { color: white; }
+  .toc-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    min-width: 22px;
+  }
+
+  /* ── MAIN CONTENT ── */
+  main { padding: 20px 0 80px; }
+
+  /* ── SECTION ── */
+  .section {
+    padding: 52px 0 0;
+    border-top: 1px solid var(--border);
+    margin-top: 52px;
+  }
+  .section:first-child { border-top: none; margin-top: 20px; }
+
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.1rem);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 32px 0 10px;
+    padding-left: 14px;
+    border-left: 3px solid var(--accent);
+  }
+
+  p { margin-bottom: 14px; color: var(--ink-soft); }
+
+  /* ── LISTS ── */
+  ul, ol {
+    margin: 12px 0 16px 0;
+    padding-left: 0;
+    list-style: none;
+  }
+  ul li, ol li {
+    color: var(--ink-soft);
+    padding: 5px 0 5px 24px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+  }
+  ul li:last-child, ol li:last-child { border-bottom: none; }
+  ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  ol { counter-reset: steps; }
+  ol li { counter-increment: steps; }
+  ol li::before {
+    content: counter(steps);
+    position: absolute;
+    left: 0;
+    width: 18px; height: 18px;
+    background: var(--accent);
+    color: white;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 8px;
+  }
+
+  /* ── TABLES ── */
+  .table-wrap { overflow-x: auto; margin: 20px 0; border-radius: 8px; border: 1px solid var(--border-strong); }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  thead { background: var(--ink); color: white; }
+  thead th {
+    padding: 12px 16px;
+    text-align: left;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  tbody tr { border-bottom: 1px solid var(--border); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:nth-child(even) { background: #faf9f4; }
+  tbody td { padding: 11px 16px; color: var(--ink-soft); vertical-align: top; }
+  tbody td:first-child {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent2);
+    white-space: nowrap;
+  }
+
+  /* ── CODE ── */
+  pre {
+    background: var(--ink);
+    color: #a8d8a8;
+    padding: 20px 22px;
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin: 16px 0;
+    position: relative;
+  }
+  pre::before {
+    content: 'EXAMPLE';
+    position: absolute;
+    top: 8px; right: 12px;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.25);
+  }
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    background: var(--bg-code);
+    color: var(--accent2);
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+  pre code { background: none; color: inherit; padding: 0; }
+
+  /* ── CALLOUT BOXES ── */
+  .callout {
+    border-left: 4px solid var(--accent2);
+    background: #f0f6fb;
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 20px 0;
+    font-size: 15px;
+    color: var(--ink-soft);
+  }
+  .callout.tip { border-color: var(--gold); background: #fdf8ed; }
+  .callout strong {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 6px;
+  }
+  .callout.tip strong { color: var(--gold); }
+
+  /* ── FAQ ── */
+  .faq-item {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .faq-q {
+    padding: 16px 20px;
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--bg-card);
+    font-size: 15px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .faq-q::before {
+    content: 'Q';
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    background: var(--accent);
+    color: white;
+    width: 20px; height: 20px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .faq-a {
+    padding: 14px 20px 14px 52px;
+    background: #faf9f4;
+    color: var(--ink-soft);
+    font-size: 15px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── TIPS GRID ── */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .tip-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .tip-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--accent);
+  }
+  .tip-card h4 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 8px;
+    padding-left: 10px;
+  }
+  .tip-card p {
+    font-size: 14px;
+    margin: 0;
+    padding-left: 10px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 36px 24px;
+    font-size: 14px;
+    font-style: italic;
+  }
+  footer strong { color: white; font-style: normal; }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  /* ── BACK TO TOP ── */
+  .back-top {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    background: var(--accent);
+    color: white;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 18px;
+    box-shadow: 0 4px 16px rgba(230,57,70,0.35);
+    transition: transform 0.2s;
+  }
+  .back-top:hover { transform: translateY(-3px); }
+
+  @media (max-width: 600px) {
+    header { padding: 40px 20px 36px; }
+    .toc-wrap { padding: 28px 20px; }
+    .container { padding: 0 16px; }
+    .toc-grid { grid-template-columns: 1fr 1fr; }
+    h2 { font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<header id="top">
+  <span class="header-label">Complete User Guide</span>
+  <h1>Pocket<span>News</span></h1>
+  <p>Stay informed. Stay ahead.</p>
+</header>
+
+<div class="toc-wrap">
+  <div class="toc-inner">
+    <div class="toc-title">Table of Contents</div>
+    <div class="toc-grid">
+      <a href="#s1"><span class="toc-num">01</span>Getting Started</a>
+      <a href="#s2"><span class="toc-num">02</span>Home Screen Layout</a>
+      <a href="#s3"><span class="toc-num">03</span>Reading News</a>
+      <a href="#s4"><span class="toc-num">04</span>Reader View</a>
+      <a href="#s5"><span class="toc-num">05</span>Font Size &amp; Themes</a>
+      <a href="#s6"><span class="toc-num">06</span>AI Summarize</a>
+      <a href="#s7"><span class="toc-num">07</span>AI Translate</a>
+      <a href="#s8"><span class="toc-num">08</span>Paragraph Mode</a>
+      <a href="#s9"><span class="toc-num">09</span>Bookmarks</a>
+      <a href="#s10"><span class="toc-num">10</span>Offline Reading</a>
+      <a href="#s11"><span class="toc-num">11</span>News History</a>
+      <a href="#s12"><span class="toc-num">12</span>Sharing Articles</a>
+      <a href="#s13"><span class="toc-num">13</span>Custom News Sources</a>
+      <a href="#s14"><span class="toc-num">14</span>Categories &amp; Languages</a>
+      <a href="#s15"><span class="toc-num">15</span>Feed Health Checker</a>
+      <a href="#s16"><span class="toc-num">16</span>OPML Import</a>
+      <a href="#s17"><span class="toc-num">17</span>Settings Reference</a>
+      <a href="#s18"><span class="toc-num">18</span>Backup &amp; Restore</a>
+      <a href="#s19"><span class="toc-num">19</span>Tips &amp; Tricks</a>
+      <a href="#s20"><span class="toc-num">20</span>FAQ</a>
+      <a href="#s21"><span class="toc-num">21</span>Notification Intervals</a>
+      <a href="#s22"><span class="toc-num">22</span>Radio Player</a>
+      <a href="#s23"><span class="toc-num">23</span>Manage Radio Stations</a>
+      <a href="#s24"><span class="toc-num">24</span>Markets Tab</a>
+      <a href="#s25"><span class="toc-num">25</span>Radio Sleep Timer</a>
+      <a href="#s26"><span class="toc-num">26</span>Share as Card</a>
+      <a href="#s27"><span class="toc-num">27</span>No Internet Screen</a>
+      <a href="#s28"><span class="toc-num">28</span>Article Publish Time</a>
+    </div>
+  </div>
+</div>
+
+<main>
+<div class="container">
+
+<!-- 1 -->
+<div class="section" id="s1">
+  <span class="section-num">Section 01</span>
+  <h2>Getting Started</h2>
+  <p>Welcome to PocketNews. This app brings news from multiple languages, categories and sources into one clean, simple screen. It works without an account, shows no ads, and stores everything on your device.</p>
+  <p>The first time you open PocketNews, a <strong>Welcome screen</strong> appears showing this user guide. Read through it and tap <strong>I Understand — Get Started</strong> to begin. This screen only appears once.</p>
+  <p>After dismissing the welcome screen, PocketNews automatically loads the latest news in the Health category in English. You can change the category and language immediately using the selectors at the top of the screen.</p>
+  <div class="callout tip">
+    <strong>Good to know</strong>
+    PocketNews works best with an internet connection for loading fresh news. However, articles you save offline and your news history are always available even without internet.
+  </div>
+</div>
+
+<!-- 2 -->
+<div class="section" id="s2">
+  <span class="section-num">Section 02</span>
+  <h2>Home Screen Layout</h2>
+  <p>The home screen has three main sections.</p>
+  <h3>Top Bar</h3>
+  <p>Shows the PocketNews name on the left and a <strong>Set</strong> (Settings) button on the right. Always visible.</p>
+  <h3>Middle Section</h3>
+  <p>Contains two selectors (category and language), a search bar, and the news list. Each article shows its title and source domain in brackets:</p>
+  <pre>Government increases fuel prices [onlinekhabar.com]</pre>
+  <h3>Bottom Navigation Bar</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Button</th><th>What it opens</th></tr></thead>
+      <tbody>
+        <tr><td>[H] Home</td><td>Reloads and shows the latest news</td></tr>
+        <tr><td>[+] Add Feed</td><td>Opens the dialog to add a custom RSS feed</td></tr>
+        <tr><td>[S] Offline</td><td>Shows articles you have saved offline</td></tr>
+        <tr><td>[B] Saved</td><td>Shows your bookmarked articles</td></tr>
+        <tr><td>[T] History</td><td>Opens the news history browser</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 3 -->
+<div class="section" id="s3">
+  <span class="section-num">Section 03</span>
+  <h2>Reading News</h2>
+  <h3>Opening an Article</h3>
+  <p>Tap any article title in the news list to open it in reader view.</p>
+  <h3>Changing Category or Language</h3>
+  <p>Tap the left selector for category or right selector for language. The list refreshes immediately. Default categories are Health, Tech, and World. Default languages are English, Hindi, and Nepali.</p>
+  <h3>Searching the Current List</h3>
+  <p>Type in the search bar — results filter instantly. For example, typing <code>budget</code> shows only articles with that word in their title.</p>
+  <h3>Long Press Menu</h3>
+  <p>Press and hold any article title to see:</p>
+  <ul>
+    <li><strong>Read</strong> — opens the article in reader view</li>
+    <li><strong>Bookmark</strong> — saves the article to your bookmarks</li>
+    <li><strong>Save Offline</strong> — downloads and saves the full article</li>
+    <li><strong>Share</strong> — opens the share sheet</li>
+  </ul>
+</div>
+
+<!-- 4 -->
+<div class="section" id="s4">
+  <span class="section-num">Section 04</span>
+  <h2>Reader View</h2>
+  <p>The reader displays the article in a clean, full-screen layout without distractions.</p>
+  <h3>Bottom Action Bar</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Button</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td>A-</td><td>Decrease font size</td></tr>
+        <tr><td>A+</td><td>Increase font size</td></tr>
+        <tr><td>Sum.</td><td>Summarize the article with AI</td></tr>
+        <tr><td>Trans.</td><td>Translate the article with AI</td></tr>
+        <tr><td>Share</td><td>Open the share sheet</td></tr>
+        <tr><td>Browser</td><td>Open original article in your browser</td></tr>
+        <tr><td>Close</td><td>Return to the news list</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <strong>Tip</strong>
+    If the article content did not load fully, tap Browser to open the original article in your device browser.
+  </div>
+</div>
+
+<!-- 5 -->
+<div class="section" id="s5">
+  <span class="section-num">Section 05</span>
+  <h2>Font Size &amp; Reading Themes</h2>
+  <h3>Changing Font Size</h3>
+  <p>Tap <strong>A-</strong> to make text smaller and <strong>A+</strong> to make it larger inside the reader. PocketNews remembers your chosen size. Range is 12 to 30, default is 16.</p>
+  <h3>Reading Themes</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Theme</th><th>Background</th><th>Best for</th></tr></thead>
+      <tbody>
+        <tr><td>White</td><td>Bright white</td><td>Daytime reading</td></tr>
+        <tr><td>Sepia</td><td>Warm yellowish</td><td>Long reading sessions</td></tr>
+        <tr><td>Dark</td><td>Near black</td><td>Night reading</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Change the theme in <strong>Settings → Reader Background</strong>. Tap Save and Apply.</p>
+</div>
+
+<!-- 6 -->
+<div class="section" id="s6">
+  <span class="section-num">Section 06</span>
+  <h2>AI Summarize</h2>
+  <p>Uses Google Gemini AI to produce a short, clear summary of the article's main points.</p>
+  <h3>How to Summarize</h3>
+  <ol>
+    <li>Open any article in reader view</li>
+    <li>Wait for the content to fully load</li>
+    <li>Tap <strong>Sum.</strong> at the bottom</li>
+    <li>The article text is replaced with the AI summary</li>
+  </ol>
+  <div class="callout">
+    <strong>Requirement</strong>
+    You need a free Gemini API key in Settings. Visit <strong>aistudio.google.com/app/apikey</strong>, sign in with any Google account, create a key, and paste it in Settings under Gemini API Key.
+  </div>
+</div>
+
+<!-- 7 -->
+<div class="section" id="s7">
+  <span class="section-num">Section 07</span>
+  <h2>AI Translate</h2>
+  <p>Uses Google Gemini AI to translate the full article into your chosen language.</p>
+  <h3>How to Translate</h3>
+  <ol>
+    <li>Open any article in reader view</li>
+    <li>Wait for the content to fully load</li>
+    <li>Tap <strong>Trans.</strong> at the bottom</li>
+    <li>Select your target language from the picker</li>
+    <li>The article text is replaced with the translation</li>
+  </ol>
+  <h3>Supported Languages</h3>
+  <p>English, Nepali, Hindi, Chinese, Japanese, Korean, Arabic, French, Spanish, German.</p>
+  <p>Set a default language in <strong>Settings → Default Translation Language</strong> to skip the picker each time.</p>
+</div>
+
+<!-- 8 -->
+<div class="section" id="s8">
+  <span class="section-num">Section 08</span>
+  <h2>Paragraph Mode</h2>
+  <p>Each paragraph is shown as its own block, separated by divider lines. Particularly helpful for screen reader users.</p>
+  <h3>Why Use It</h3>
+  <p>In standard full mode, all text is in one large area — a screen reader reads it all without stopping. In paragraph mode, each block is a separate element that a screen reader can announce individually and clearly.</p>
+  <h3>Turning On Paragraph Mode</h3>
+  <ol>
+    <li>Tap Set to open Settings</li>
+    <li>Find Reader Mode and select <strong>paragraph</strong></li>
+    <li>Tap Save and Apply</li>
+  </ol>
+  <p>To switch back, set Reader Mode to <strong>full</strong>.</p>
+</div>
+
+<!-- 9 -->
+<div class="section" id="s9">
+  <span class="section-num">Section 09</span>
+  <h2>Bookmarks</h2>
+  <p>Save articles to come back to later. Stored on your device and available any time.</p>
+  <h3>Saving a Bookmark</h3>
+  <p>Press and hold any article in the news list, then tap <strong>Bookmark</strong>.</p>
+  <h3>Viewing Bookmarks</h3>
+  <p>Tap <strong>[B] Saved</strong> in the bottom navigation bar.</p>
+  <div class="callout tip">
+    <strong>Note</strong>
+    Bookmarks save the title and link only. When you tap a bookmark, PocketNews loads it fresh from the internet. To read without internet, use Save Offline instead.
+  </div>
+  <h3>Clearing All Bookmarks</h3>
+  <p>Go to <strong>Settings → Data → Clear All Bookmarks</strong> and confirm.</p>
+</div>
+
+<!-- 10 -->
+<div class="section" id="s10">
+  <span class="section-num">Section 10</span>
+  <h2>Offline Reading</h2>
+  <p>Save the full content of any article so you can read it without internet.</p>
+  <h3>Saving an Article Offline</h3>
+  <p>Press and hold any article, then tap <strong>Save Offline</strong>. A confirmation appears when saving completes.</p>
+  <h3>Auto-Save</h3>
+  <p>PocketNews automatically saves the top 5 articles each time the news loads — silently in the background. The auto-save skips articles already saved so storage stays clean.</p>
+  <h3>Reading Offline Articles</h3>
+  <p>Tap <strong>[S] Offline</strong> in the bottom navigation bar. Tap any article to read it instantly.</p>
+  <h3>Deleting a Single Offline Article</h3>
+  <p>Tap <strong>[S] Offline</strong>, then <strong>long press</strong> any article in the list. A confirmation dialog appears — tap Delete to remove just that one article.</p>
+  <h3>Deleting All Offline Articles</h3>
+  <p>Inside Offline, tap <strong>Delete All</strong> at the bottom, or go to <strong>Settings → Data → Clear All Offline News</strong>.</p>
+</div>
+
+<!-- 11 -->
+<div class="section" id="s11">
+  <span class="section-num">Section 11</span>
+  <h2>News History</h2>
+  <p>Automatically records every article you see. Stored by date, kept for up to 28 days.</p>
+  <h3>Opening History</h3>
+  <p>Tap <strong>[T] History</strong> in the bottom navigation bar. Choose a time range:</p>
+  <ul>
+    <li><strong>Last 7 days</strong> — articles from the past week</li>
+    <li><strong>Last 14 days</strong> — articles from the past two weeks</li>
+    <li><strong>Last 28 days</strong> — articles from the past month</li>
+  </ul>
+  <h3>History List Format</h3>
+  <pre>[2025-03-01]  Nepal signs new trade agreement
+[2025-02-28]  Heavy rain forecast for this weekend
+[2025-02-27]  New school policy announced</pre>
+  <h3>Searching History</h3>
+  <p>A search bar filters results instantly as you type. Useful when you remember a keyword but not the exact date.</p>
+  <h3>Clearing History</h3>
+  <p>Inside the history list tap <strong>Clear History</strong>. A confirmation appears before anything is deleted.</p>
+</div>
+
+<!-- 12 -->
+<div class="section" id="s12">
+  <span class="section-num">Section 12</span>
+  <h2>Sharing Articles</h2>
+  <p>Share from the long press menu on the news list, or the Share button inside the reader.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+      <tbody>
+        <tr><td>WA</td><td>Opens WhatsApp to send the article link</td></tr>
+        <tr><td>TG</td><td>Opens Telegram to send the article link</td></tr>
+        <tr><td>X</td><td>Opens X (Twitter) to share the link</td></tr>
+        <tr><td>f</td><td>Opens Facebook to share the link</td></tr>
+        <tr><td>Copy Link</td><td>Copies the article URL to clipboard</td></tr>
+        <tr><td>More Apps</td><td>Opens your device share menu</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 13 -->
+<div class="section" id="s13">
+  <span class="section-num">Section 13</span>
+  <h2>Adding Custom News Sources</h2>
+  <p>PocketNews supports any website with an RSS feed. RSS feed URLs usually look like:</p>
+  <pre>https://example.com/feed
+https://example.com/rss
+https://example.com/news.xml</pre>
+  <h3>Adding a Feed</h3>
+  <ol>
+    <li>Tap <strong>[+] Add Feed</strong> in the bottom navigation bar</li>
+    <li>Paste the RSS feed URL into the text field</li>
+    <li>Choose the category and language</li>
+    <li>Tap <strong>Add</strong></li>
+  </ol>
+  <div class="callout tip">
+    <strong>Tip</strong>
+    Use Feed Health Checker in Settings to test a URL before adding it. This avoids broken or wrong feeds.
+  </div>
+  <h3>Managing &amp; Removing Feeds</h3>
+  <p>Tap <strong>[+] Add Feed</strong> in the bottom nav to open the Manage Feeds screen. All your custom feeds are listed by domain, category and language. Tap any feed to see its full URL and remove it individually. You can also go to <strong>Settings → Feed Tools → Manage Feeds (Add / Remove)</strong>.</p>
+  <div class="callout tip">
+    <strong>Note</strong>
+    Removing a feed only deletes it from your custom list. Built-in default feeds are never affected.
+  </div>
+</div>
+
+<!-- 14 -->
+<div class="section" id="s14">
+  <span class="section-num">Section 14</span>
+  <h2>Managing Categories &amp; Languages</h2>
+  <h3>Adding a Custom Category</h3>
+  <ol>
+    <li>Go to <strong>Settings → Manage Categories</strong></li>
+    <li>Tap the + button at the top</li>
+    <li>Type the new name (e.g. Sports, Finance, Politics)</li>
+    <li>Tap Add</li>
+  </ol>
+  <p>The new category appears in the selector on the home screen immediately.</p>
+  <h3>Removing a Category</h3>
+  <p>Open Manage Categories, tap the name, and confirm removal. Default categories (Health, Tech, World) cannot be removed.</p>
+  <h3>Adding a Custom Language</h3>
+  <p>Follow the same steps in <strong>Manage Languages</strong>.</p>
+</div>
+
+<!-- 15 -->
+<div class="section" id="s15">
+  <span class="section-num">Section 15</span>
+  <h2>Feed Health Checker</h2>
+  <p>Test any RSS URL before adding it. Go to <strong>Settings → Feed Tools → Feed Health Checker</strong>.</p>
+  <h3>Results</h3>
+  <pre>OK  -  Feed is working
+Title: Nepali Times
+Articles found: 15</pre>
+  <pre>WARNING  -  URL reachable (HTTP 200)
+But no RSS/Atom items found.
+This may not be a valid RSS/Atom feed.</pre>
+  <pre>FAILED  -  HTTP 404
+Could not reach this feed.</pre>
+</div>
+
+<!-- 16 -->
+<div class="section" id="s16">
+  <span class="section-num">Section 16</span>
+  <h2>OPML Import</h2>
+  <p>Import a full list of RSS feeds at once from another app like Feedly, Inoreader, or NewsBlur.</p>
+  <h3>Getting Your OPML</h3>
+  <ul>
+    <li><strong>Feedly</strong> — Profile → Import and Export → Export OPML</li>
+    <li><strong>Inoreader</strong> — Preferences → Import and Export → Export OPML</li>
+    <li><strong>NewsBlur</strong> — Account Settings → Download OPML</li>
+  </ul>
+  <h3>What OPML Looks Like</h3>
+  <pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;opml version="1.0"&gt;
+  &lt;head&gt;&lt;title&gt;My News Feeds&lt;/title&gt;&lt;/head&gt;
+  &lt;body&gt;
+    &lt;outline text="TechCrunch" type="rss"
+      xmlUrl="https://feeds.feedburner.com/TechCrunch/"
+      htmlUrl="https://techcrunch.com"/&gt;
+
+    &lt;outline text="BBC World News" type="rss"
+      xmlUrl="https://feeds.bbci.co.uk/news/world/rss.xml"
+      htmlUrl="https://www.bbc.com/news/world"/&gt;
+
+    &lt;outline text="Nepali Times" type="rss"
+      xmlUrl="https://nepalitimes.com/feed"
+      htmlUrl="https://nepalitimes.com"/&gt;
+
+    &lt;outline text="Kantipur Daily" type="rss"
+      xmlUrl="https://ekantipur.com/rss"
+      htmlUrl="https://ekantipur.com"/&gt;
+
+    &lt;outline text="Setopati" type="rss"
+      xmlUrl="https://www.setopati.com/feed"
+      htmlUrl="https://www.setopati.com"/&gt;
+  &lt;/body&gt;
+&lt;/opml&gt;</pre>
+  <p>PocketNews reads only the <code>xmlUrl</code> value from each line — the actual RSS feed address.</p>
+  <h3>How to Import</h3>
+  <ol>
+    <li>Copy all the OPML content</li>
+    <li>Go to <strong>Settings → Feed Tools → OPML Import</strong></li>
+    <li>Paste the content into the text box</li>
+    <li>Select the Category and Language to import into</li>
+    <li>Tap <strong>Import</strong></li>
+  </ol>
+  <div class="callout tip">
+    <strong>Safe to repeat</strong>
+    You can import the same OPML multiple times — duplicates are skipped automatically.
+  </div>
+</div>
+
+<!-- 17 -->
+<div class="section" id="s17">
+  <span class="section-num">Section 17</span>
+  <h2>Settings Reference</h2>
+  <h3>Appearance</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Setting</th><th>Options</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>App Theme</td><td>Light, Dark</td><td>Overall color scheme</td></tr>
+        <tr><td>Reader Background</td><td>White, Sepia, Dark</td><td>Background inside the reader</td></tr>
+        <tr><td>Default Font Size</td><td>12 to 24</td><td>Starting text size in the reader</td></tr>
+        <tr><td>Reader Mode</td><td>Full, Paragraph</td><td>How articles are displayed</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h3>AI (Gemini)</h3>
+  <ul>
+    <li><strong>Gemini API Key</strong> — required for Summarize and Translate. Free at aistudio.google.com/app/apikey</li>
+    <li><strong>Default Translation Language</strong> — pre-selects your language in the translate picker</li>
+  </ul>
+  <h3>Data</h3>
+  <ul>
+    <li><strong>Clear All Offline News</strong> — deletes all offline saved articles</li>
+    <li><strong>Clear All Bookmarks</strong> — deletes all bookmarks</li>
+    <li><strong>Reset Custom Feeds</strong> — removes custom RSS feeds (built-in feeds stay)</li>
+  </ul>
+  <h3>Backup</h3>
+  <p>Export or import all settings, feeds, categories, languages and bookmarks as a single backup file.</p>
+  <h3>Notifications</h3>
+  <ul>
+    <li><strong>News Notification Interval</strong> — set how often PocketNews silently fetches and delivers a headline notification. Options: Off, 5 min, 10 min, 15 min, 30 min, 45 min, 1 hour, 12 hours, 24 hours.</li>
+  </ul>
+  <h3>Feed Tools</h3>
+  <ul>
+    <li><strong>Manage Feeds (Add / Remove)</strong> — add new RSS feeds or remove individual feeds</li>
+    <li><strong>Feed Health Checker</strong> — test any RSS URL</li>
+    <li><strong>OPML Import</strong> — import feeds from another app</li>
+  </ul>
+  <h3>Radio</h3>
+  <ul>
+    <li><strong>Manage Radio Stations</strong> — view, add, and remove your custom radio stations. Built-in stations from the online directory cannot be removed here.</li>
+  </ul>
+</div>
+
+<!-- 18 -->
+<div class="section" id="s18">
+  <span class="section-num">Section 18</span>
+  <h2>Backup &amp; Restore</h2>
+  <p>The backup saves your settings, custom feeds, categories, languages and bookmarks into a single file.</p>
+  <h3>Exporting a Backup</h3>
+  <ol>
+    <li>Go to <strong>Settings → Backup → Export / Import Backup</strong></li>
+    <li>Tap <strong>Export backup</strong></li>
+    <li>A message shows the exact file path where it was saved</li>
+  </ol>
+  <h3>Importing a Backup</h3>
+  <ol>
+    <li>Go to <strong>Settings → Backup → Export / Import Backup</strong></li>
+    <li>Tap <strong>Import backup</strong></li>
+    <li>Confirm what will be overwritten</li>
+    <li>Tap <strong>Import</strong> to complete</li>
+  </ol>
+  <div class="callout">
+    <strong>Moving to a new device</strong>
+    Export on your old device → transfer the file via Bluetooth or file manager → place it in the app folder on the new device → import.
+  </div>
+</div>
+
+<!-- 19 -->
+<div class="section" id="s19">
+  <span class="section-num">Section 19</span>
+  <h2>Tips &amp; Tricks</h2>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <h4>Read without distraction</h4>
+      <p>Use Sepia theme with a comfortable font size. No ads, no pop-ups, no recommended content.</p>
+    </div>
+    <div class="tip-card">
+      <h4>Stay informed offline</h4>
+      <p>Open PocketNews on Wi-Fi. Auto-save stores the top 5 articles silently — ready when you go offline.</p>
+    </div>
+    <div class="tip-card">
+      <h4>Find old articles fast</h4>
+      <p>Tap History, select Last 28 days, and type a keyword. Find any article in seconds.</p>
+    </div>
+    <div class="tip-card">
+      <h4>Add local news feeds</h4>
+      <p>Tap [+] Add Feed to open Manage Feeds. Paste any RSS URL, pick category and language. Test with Feed Health Checker first.</p>
+    </div>
+    <div class="tip-card">
+      <h4>Stay updated automatically</h4>
+      <p>Set a notification interval in Settings so PocketNews delivers the latest headline to your notification panel every 30 minutes, hourly, or on your own schedule.</p>
+    </div>
+    <div class="tip-card">
+      <h4>AI features are free</h4>
+      <p>Get a free Gemini key at aistudio.google.com/app/apikey. Summarize and Translate both work instantly.</p>
+    </div>
+    <div class="tip-card">
+      <h4>Use paragraph mode</h4>
+      <p>If you use TalkBack or Jieshuo screen reader, switch to paragraph mode. Each block is announced separately.</p>
+    </div>
+    <div class="tip-card">
+      <h4>Share and save together</h4>
+      <p>Long press an article in the news list to bookmark, save offline, or share — all without opening it first.</p>
+    </div>
+    <div class="tip-card">
+      <h4>Remove items individually</h4>
+      <p>In Offline news, long press any saved article to delete just that one. In Bookmarks, long press any bookmark and tap Remove Bookmark.</p>
+    </div>
+    <div class="tip-card">
+      <h4>Listen while you read</h4>
+      <p>Open the Radio tab, tap a station to start playing, then press Back to return to the station list or tap Home to browse news — audio continues in the background.</p>
+    </div>
+    <div class="tip-card">
+      <h4>Add your own radio stations</h4>
+      <p>Tap + Add in the radio tab or go to Settings → Radio → Manage Radio Stations. You need the direct stream URL (usually ending in .mp3, .aac, or /stream).</p>
+    </div>
+    <div class="tip-card">
+      <h4>Backup before changes</h4>
+      <p>Export a backup before editing feeds or settings. Restore everything in seconds if needed.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 20 -->
+<div class="section" id="s20">
+  <span class="section-num">Section 20</span>
+  <h2>Frequently Asked Questions</h2>
+
+  <div class="faq-item">
+    <div class="faq-q">Why is the article showing a short description instead of full text?</div>
+    <div class="faq-a">Some websites block automatic content loading. Tap <strong>Browser</strong> at the bottom of the reader to open the full article in your device browser.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">The news list is empty. What do I do?</div>
+    <div class="faq-a">Check your internet connection, then tap <strong>[H] Home</strong> to reload. Try switching category or language. If still empty, add a custom feed using Add Feed.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Summarize and Translate are not working.</div>
+    <div class="faq-a">You need a Gemini API key in Settings. Get a free key at <strong>aistudio.google.com/app/apikey</strong> and paste it under Gemini API Key.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">I added a custom RSS feed but see no articles from it.</div>
+    <div class="faq-a">Check that you selected the correct category and language when adding the feed. The feed only appears when that combination is selected on the home screen.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">How do I remove a single bookmark?</div>
+    <div class="faq-a">Go to <strong>[B] Saved</strong>, then long press the bookmark you want to remove and tap <strong>Remove Bookmark</strong>.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">How do I delete a single offline article?</div>
+    <div class="faq-a">Tap <strong>[S] Offline</strong>, then long press any article in the list. Tap <strong>Delete</strong> in the confirmation dialog.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">How do I remove a specific RSS feed I added?</div>
+    <div class="faq-a">Tap <strong>[+] Add Feed</strong> in the bottom nav to open Manage Feeds. Tap the feed you want to remove and tap <strong>Remove</strong>.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Is my data sent anywhere?</div>
+    <div class="faq-a">Everything is stored only on your device. The only exception is when you use Summarize or Translate — those send the article text to Google Gemini AI for processing.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">How often does the news refresh?</div>
+    <div class="faq-a">News refreshes every time you tap <strong>[H] Home</strong> or change the category or language. There is no automatic background refresh.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Can I use PocketNews without a Google account?</div>
+    <div class="faq-a">Yes. PocketNews works fully without any account. A Google account is only needed for the free Gemini AI features.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">The app opened an article but the content does not match the title.</div>
+    <div class="faq-a">This can happen when an RSS feed contains mixed content or outdated links. Tap <strong>Browser</strong> to open the original article.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">A radio station shows an error when I try to play it.</div>
+    <div class="faq-a">The station's stream URL may be offline or changed. Try another station. For custom stations, verify the stream URL is still active using a browser or media player on your device.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">How do I stop the radio?</div>
+    <div class="faq-a">In the player view, tap the <strong>⏹ Stop</strong> button in the bottom nav bar. Or press Back — the radio stops automatically when you leave the player.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Can I listen to radio while reading news?</div>
+    <div class="faq-a">Not simultaneously — the radio stops when you leave the player view. To read and listen at the same time, use your device's built-in media player for the radio stream and PocketNews for news.</div>
+  </div>
+
+</div>
+
+<!-- 21 -->
+<div class="section" id="s21">
+  <span class="section-num">Section 21</span>
+  <h2>Notification Intervals</h2>
+  <p>PocketNews can automatically fetch the latest headline from your current category and language and deliver it as a system notification — no need to open the app.</p>
+  <h3>Setting an Interval</h3>
+  <ol>
+    <li>Go to <strong>Settings → Notifications → News Notification Interval</strong></li>
+    <li>Select your preferred interval from the list</li>
+    <li>A toast confirms the interval is active</li>
+  </ol>
+  <h3>Available Intervals</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Option</th><th>Frequency</th></tr></thead>
+      <tbody>
+        <tr><td>Off</td><td>No notifications (default)</td></tr>
+        <tr><td>5 min</td><td>Every 5 minutes</td></tr>
+        <tr><td>10 min</td><td>Every 10 minutes</td></tr>
+        <tr><td>15 min</td><td>Every 15 minutes</td></tr>
+        <tr><td>30 min</td><td>Every 30 minutes</td></tr>
+        <tr><td>45 min</td><td>Every 45 minutes</td></tr>
+        <tr><td>1 hour</td><td>Every hour</td></tr>
+        <tr><td>12 hours</td><td>Twice a day</td></tr>
+        <tr><td>24 hours</td><td>Once a day</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h3>What the Notification Shows</h3>
+  <p>The notification title shows <strong>PocketNews — New Headlines</strong> and the body shows the top article headline from your current feed. Tapping the notification dismisses it.</p>
+  <div class="callout">
+    <strong>Note</strong>
+    Notifications require Jieshuo to be running in the background. On Android 13 and above, you will be asked to grant notification permission the first time.
+  </div>
+  <h3>Turning Off Notifications</h3>
+  <p>Go to <strong>Settings → Notifications → News Notification Interval</strong> and select <strong>Off</strong>.</p>
+</div>
+
+<!-- 22 -->
+<div class="section" id="s22">
+  <span class="section-num">Section 22</span>
+  <h2>Radio Player</h2>
+  <p>PocketNews includes a built-in live radio player with over 200 stations from Nepal and around the world, plus support for your own custom stream URLs.</p>
+
+  <h3>Opening the Radio Tab</h3>
+  <ol>
+    <li>Tap <strong>[R] Radio</strong> in the bottom navigation bar</li>
+    <li>The app loads the station list — built-in stations appear first, custom stations at the bottom</li>
+    <li>Use the search bar at the top to filter by station name or location</li>
+  </ol>
+
+  <h3>Playing a Station</h3>
+  <ol>
+    <li>Tap any station name in the list</li>
+    <li>The <strong>Player View</strong> opens showing the station name, frequency, and location</li>
+    <li>The app connects automatically — status shows <em>⏳ Connecting…</em> then <em>▶ Now Playing</em></li>
+  </ol>
+
+  <h3>Player Controls (Bottom Nav Bar)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Button</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td>← Back</td><td>Stop radio and return to station list</td></tr>
+        <tr><td>⏮ Prev</td><td>Play the previous station in the list</td></tr>
+        <tr><td>▶ Play / ⏹ Stop</td><td>Toggle playback on and off</td></tr>
+        <tr><td>⏭ Next</td><td>Play the next station in the list</td></tr>
+        <tr><td>☰ List</td><td>Stop radio and return to station list</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <strong>Device Back Button</strong>
+    Pressing the device back button while in the player view stops the radio and returns to the station list. Pressing it again from the station list returns to the news home screen.
+  </div>
+
+  <h3>Adding a Custom Station</h3>
+  <ol>
+    <li>In the Radio tab, tap <strong>+ Add</strong> in the bottom-right bar</li>
+    <li>Enter the station name and its direct stream URL</li>
+    <li>Tap <strong>Add</strong> — the station appears in the list immediately</li>
+  </ol>
+
+  <div class="callout tip">
+    <strong>Finding stream URLs</strong>
+    Search for your radio station's website and look for a "Listen Live" or "Stream" link. Common formats are .mp3, .aac, .ogg streams or /stream endpoints. You can also check radio directories like radio-browser.info.
+  </div>
+
+  <h3>Removing a Custom Station</h3>
+  <p>Long press a custom station in the list and tap <strong>Remove</strong>. Built-in stations cannot be removed from the list — they can only be hidden by using the search filter.</p>
+</div>
+
+<!-- 23 -->
+<div class="section" id="s23">
+  <span class="section-num">Section 23</span>
+  <h2>Manage Radio Stations</h2>
+  <p>The Manage Radio Stations screen in Settings gives you a full view of all your saved custom stations and lets you add or remove them without opening the Radio tab.</p>
+
+  <h3>Opening Manage Radio</h3>
+  <ol>
+    <li>Tap <strong>Set</strong> (Settings) in the top-right corner</li>
+    <li>Scroll to the <strong>Radio</strong> section</li>
+    <li>Tap <strong>Manage Radio Stations</strong></li>
+  </ol>
+
+  <h3>What You Can Do</h3>
+  <ul>
+    <li><strong>View all custom stations</strong> — listed with their name and location label</li>
+    <li><strong>Tap a station</strong> — shows the full details and a Remove button</li>
+    <li><strong>+ Add Station</strong> — opens the add dialog to create a new custom station</li>
+  </ul>
+
+  <div class="callout">
+    <strong>Built-in stations</strong>
+    Built-in stations loaded from the online directory are not shown in Manage Radio — they are managed by the online source. Only stations you have added yourself appear here.
+  </div>
+
+  <h3>Custom Station Fields</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Field</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Station Name</td><td>Display name shown in the list and player</td></tr>
+        <tr><td>Stream URL</td><td>Direct URL to the audio stream (never shown to other users)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section" id="s24">
+  <div class="section-num">24</div>
+  <h2>Markets Tab</h2>
+  <p>The <strong>Markets tab</strong> (tap <code>[M]</code> in the bottom navigation) brings Nepal's key financial data into one place — gold prices, forex rates, NEPSE stock index, and fuel prices. All data is fetched live from official sources.</p>
+
+  <h3>Opening the Markets Tab</h3>
+  <p>Tap the <strong>[M]</strong> button in the bottom navigation bar. The tab loads all sections automatically. Each section has a <strong>↻ Refresh</strong> button to reload that specific data without refreshing the whole tab.</p>
+
+  <h3>Gold &amp; Silver Prices</h3>
+  <p>Today's gold and silver rates from the <strong>Federation of Nepal Gold &amp; Silver Dealers Association</strong>, sourced via ashesh.com.np. Prices are shown per Tola (11.66g) and per 10 grams.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Item</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Gold Hallmark</td><td>Fine gold 9999 — highest purity</td></tr>
+        <tr><td>Gold Tajabi</td><td>Standard gold used in jewellery</td></tr>
+        <tr><td>Silver</td><td>Silver rate per tola and 10g</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <strong>Update time</strong>
+    Gold and silver rates are updated daily after <strong>11 AM NPT</strong> on trading days. If you open the app before 11 AM, you may see the previous day's rate.
+  </div>
+
+  <h3>Forex Rates</h3>
+  <p>Live foreign exchange rates from <strong>Nepal Rastra Bank (NRB)</strong> — the official central bank of Nepal. Rates show the buying and selling price in NPR for major currencies including USD, EUR, GBP, INR, AUD, and more.</p>
+  <div class="callout">
+    <strong>Rate timing</strong>
+    NRB publishes rates each business day. If today's rates are not yet available, the app automatically falls back to the previous day's rates and shows the date clearly.
+  </div>
+
+  <h3>NEPSE Stock Index</h3>
+  <p>The <strong>Nepal Stock Exchange (NEPSE)</strong> index value and daily change, plus the top 10 gainers and top 10 losers for the current trading session. Data is sourced from merolagani.com.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Shown</th><th>Details</th></tr></thead>
+      <tbody>
+        <tr><td>Index Value</td><td>Current NEPSE composite index</td></tr>
+        <tr><td>Change</td><td>Absolute change and percentage from previous close</td></tr>
+        <tr><td>Top Gainers</td><td>Symbols with highest % gain today</td></tr>
+        <tr><td>Top Losers</td><td>Symbols with highest % loss today</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <strong>Market hours</strong>
+    NEPSE trades <strong>Sunday to Thursday, 11 AM – 3 PM NPT</strong>. Outside these hours the data shown is from the last trading session.
+  </div>
+
+  <h3>Fuel Prices</h3>
+  <p>Current petrol, diesel, kerosene, and LP Gas prices published by <strong>Nepal Oil Corporation (NOC)</strong>, sourced via chautarihub.com. Prices are shown for three regional zones.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Zone</th><th>Includes</th></tr></thead>
+      <tbody>
+        <tr><td>Kathmandu / Pokhara</td><td>Valley and major hill cities</td></tr>
+        <tr><td>Biratnagar / Birgunj</td><td>Terai and border towns</td></tr>
+        <tr><td>Surkhet / Dang</td><td>Mid-hill region</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section" id="s25">
+  <div class="section-num">25</div>
+  <h2>Radio Sleep Timer</h2>
+  <p>The <strong>Sleep Timer</strong> lets you set a countdown after which the radio will automatically stop — useful when listening before sleep or during a break.</p>
+
+  <h3>Setting the Timer</h3>
+  <ol>
+    <li>Open the Radio tab and start playing a station</li>
+    <li>In the player view, tap the <strong>⏱ Sleep Timer: Off</strong> button</li>
+    <li>Choose a duration: <strong>15, 30, 60, or 90 minutes</strong></li>
+    <li>The label updates to show the remaining time, e.g. <em>Stops in 30 min</em></li>
+  </ol>
+
+  <h3>Cancelling the Timer</h3>
+  <p>Tap <strong>⏱</strong> again and choose <strong>Cancel Timer</strong>. The timer is also automatically cancelled if you close the player manually before it fires.</p>
+
+  <div class="callout">
+    <strong>What happens when the timer fires</strong>
+    The radio stops, the player closes, and a toast message confirms the action. No alarm sound is played.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section" id="s26">
+  <div class="section-num">26</div>
+  <h2>Share Article as Card</h2>
+  <p>The <strong>Share as Card</strong> feature creates a formatted text card with the article headline, a short description preview, the source link, and a "Shared via PocketNews" footer — ready to paste into WhatsApp, Telegram, or any messaging app.</p>
+
+  <h3>How to Share as Card</h3>
+  <ol>
+    <li>Open any article in the reader</li>
+    <li>Tap the <strong>Share</strong> button in the top bar</li>
+    <li>In the share sheet, tap <strong>Share as Card</strong> (red button)</li>
+    <li>Choose the app to share to — the card text is pre-formatted</li>
+  </ol>
+
+  <h3>Card Format Example</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Part</th><th>Content</th></tr></thead>
+      <tbody>
+        <tr><td>━━━━━━ (border)</td><td>Visual separator</td></tr>
+        <tr><td>📰 Headline</td><td>Full article title</td></tr>
+        <tr><td>Description</td><td>First 120 characters of article excerpt</td></tr>
+        <tr><td>🔗 Link</td><td>Direct URL to the original article</td></tr>
+        <tr><td>📡 Source</td><td>News source domain</td></tr>
+        <tr><td>Footer</td><td>Shared via PocketNews</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <strong>Difference from regular Share</strong>
+    The regular Share button sends just the title and link. Share as Card includes the description excerpt and formatted borders — better for messaging apps where plain links look bare.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section" id="s27">
+  <div class="section-num">27</div>
+  <h2>No Internet Screen</h2>
+  <p>When PocketNews cannot connect to any news source — for example when your device is offline or your connection is too slow — it shows a clear <strong>No Internet</strong> screen instead of leaving the feed empty or frozen.</p>
+
+  <h3>What You See</h3>
+  <p>A centred screen with a 📡 icon, the message <em>"No Internet Connection"</em>, a short explanation, and a red <strong>↻ Retry</strong> button.</p>
+
+  <h3>Retrying</h3>
+  <p>Tap <strong>Retry</strong> to try loading the news again. If your connection has been restored, the feed will load normally and the error screen will disappear. You can also tap the <strong>Home</strong> button in the navigation bar, which also triggers a reload.</p>
+
+  <div class="callout">
+    <strong>Partial failures</strong>
+    If some feeds load but others fail, the app shows whatever articles it received without displaying the error screen. The error screen only appears when <em>all</em> fetches fail.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section" id="s28">
+  <div class="section-num">28</div>
+  <h2>Article Publish Time</h2>
+  <p>Each article in the news feed now shows its <strong>actual publish time</strong> from the RSS feed — displayed as a relative timestamp next to the source name.</p>
+
+  <h3>Time Format</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Display</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>Just now</td><td>Published less than 1 minute ago</td></tr>
+        <tr><td>5m ago</td><td>Published 5 minutes ago</td></tr>
+        <tr><td>2h ago</td><td>Published 2 hours ago</td></tr>
+        <tr><td>Yesterday</td><td>Published 24–48 hours ago</td></tr>
+        <tr><td>3d ago</td><td>Published 3 days ago</td></tr>
+        <tr><td>Mar 12</td><td>Published more than a week ago</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Example List Item</h3>
+  <p><code>Nepal Budget 2082/83 announced [ekantipur.com]  · 2h ago</code></p>
+
+  <div class="callout">
+    <strong>No time shown?</strong>
+    Some RSS feeds do not include a publication date. In that case no timestamp is shown — only the title and source name appear.
+  </div>
+</div>
+
+</div><!-- /container -->
+</main>
+
+<footer>
+  <strong>PocketNews v1.2.0</strong> — Stay informed. Stay ahead.<br>
+  Developed by Sushil — <a href="https://sushil0.com.np">sushil0.com.np</a>
+</footer>
+
+<a href="#top" class="back-top" title="Back to top">↑</a>
+
+</body>
+</html>
